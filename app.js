@@ -23,4 +23,10 @@ app.get("/write", (req, res) => {
   });
 });
 
+app.get("/detail/:id", async (req, res) => {
+  res.render("detail", {
+    title: TITLE,
+  });
+});
+
 app.listen(3000);
