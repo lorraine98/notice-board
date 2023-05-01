@@ -1,5 +1,6 @@
 const express = require("express");
 const { engine } = require("express-handlebars");
+const mongodbConnection = require("./configs/mongodb-connection");
 
 const app = express();
 
@@ -29,4 +30,10 @@ app.get("/detail/:id", async (req, res) => {
   });
 });
 
-app.listen(3000);
+let collection;
+app.listen(3000, async () => {
+  console.log("Server started");
+  const mongoClient = await mongodbConnection();
+  collection = mongoClient.db("board").collection("post");
+  console.log("MongoDB connected");
+});
