@@ -6,7 +6,12 @@ const app = express();
 
 const TITLE = "notice board";
 
-app.engine("handlebars", engine());
+app.engine(
+  "handlebars",
+  handlebars.create({
+    helpers: require("./configs/handlebars-helpers"),
+  }).engine
+);
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
