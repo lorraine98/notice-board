@@ -9,7 +9,7 @@ app.set("views", __dirname + "/views");
 
 app.get("/", (req, res) => {
   res.render("home", {
-    title: "hello world",
+    title: "notice board",
     message: "nice to meet you",
     layout: false,
   });
