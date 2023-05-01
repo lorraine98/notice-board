@@ -1,0 +1,29 @@
+<h1>[{{title}}] write post</h1>
+<div>
+  <form name="boardForm" method="post" action="/write" >
+    <div>
+      <label>title</label>
+      <input type="text" name="title" placeholder="add title" value="" />
+    </div>
+
+    <div>
+      <label>name</label>
+      <input type="text" name="writer" placeholder="add name" value="" />
+    </div>
+
+    <div>
+      <label>password</label>
+      <input type="password" name="password" placeholder="add password" />
+    </div>
+
+    <div>
+      <label>main post</label><br />
+      <textarea placeholder="add post" name="content" cols="50" rows="10"></textarea>
+      <br />
+
+      <div>
+        <button type="submit">submit</button>
+        <button type="button" onclick="location.href='/'">cancel</button>
+      </div>
+  </form>
+</div>

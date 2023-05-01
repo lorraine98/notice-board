@@ -3,15 +3,23 @@ const { engine } = require("express-handlebars");
 
 const app = express();
 
+const TITLE = "notice board";
+
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
 app.get("/", (req, res) => {
   res.render("home", {
-    title: "notice board",
+    title: TITLE,
     message: "nice to meet you",
     layout: false,
+  });
+});
+
+app.get("/write", (req, res) => {
+  res.render("write", {
+    title: TITLE,
   });
 });
 
