@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 
-const uri = "localhost:27017";
+const { MONGODB_URI } = process.env;
 
 module.exports = function (callback) {
-  return MongoClient.connect(uri, callback);
+  return MongoClient.connect(MONGODB_URI, callback);
 };
