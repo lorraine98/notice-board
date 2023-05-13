@@ -23,12 +23,23 @@ app.engine(
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
-app.get("/", (req, res) => {
-  res.render("home", {
-    title: TITLE,
-    message: "nice to meet you",
-    layout: false,
-  });
+app.get("/", async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const search = req.query.search || "";
+  try {
+    const [posts, paginator] = await postService.list(collection, page, search);
+
+    res.render("home", {
+      title: TITLE,
+      search,
+      paginator,
+      posts,
+      layout: false,
+    });
+  } catch (error) {
+    console.error(error);
+    res.render("home", { title: "게시판 오류" });
+  }
 });
 
 const WRITE = "/write";

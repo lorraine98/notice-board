@@ -4,11 +4,13 @@
   type="text"
   name="search"
   id="search"
-  value=""
+  value="{{search}}"
   size="50"
   placeholder="search keyword"
 />
-<button>검색</button>
+<button
+  onclick="location.href=`/?search=${document.getElementById('search').value}`"
+>검색</button>
 <br />
 
 <a href="/write">write</a>
