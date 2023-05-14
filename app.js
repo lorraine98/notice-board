@@ -58,6 +58,15 @@ app.post(WRITE, async (req, res) => {
   res.redirect(`/detail/${result.insertedId}`);
 });
 
+app.get("/detail/:id", async (req, res) => {
+  const { id } = req.params;
+  const result = await postService.getDetailPost(collection, id);
+  res.render("detail", {
+    title: TITLE,
+    post: result.value,
+  });
+});
+
 app.get("/modify/:id", async (req, res) => {
   const { id } = req.params;
   const post = await postService.getPostById(collection, id);
@@ -84,13 +93,22 @@ app.post("/modify/", async (req, res) => {
   }
 });
 
-app.get("/detail/:id", async (req, res) => {
-  const { id } = req.params;
-  const result = await postService.getDetailPost(collection, id);
-  res.render("detail", {
-    title: TITLE,
-    post: result.value,
-  });
+app.delete("/delete", async (req, res) => {
+  const { id, password } = req.body;
+
+  try {
+    const result = await postService.deletePost(collection, { id, password });
+
+    if (result.deletedCount !== 1) {
+      alert("Fail to delete");
+      return res.json({ isSuccess: false });
+    }
+
+    return res.json({ isSuccess: true });
+  } catch (error) {
+    console.error(error);
+    return res.json({ isSuccess: false });
+  }
 });
 
 app.post("/check-password", async (req, res) => {

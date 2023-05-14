@@ -5,6 +5,13 @@ const postOption = {
   },
 };
 
+const deleteOption = {
+  method: "DELETE",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
 async function modifyPost(id) {
   const password = prompt("Enter password");
 
@@ -26,4 +33,24 @@ async function modifyPost(id) {
   }
 }
 
-async function deletePost() {}
+async function deletePost(id) {
+  const password = prompt("Enter password");
+
+  if (!password) {
+    return;
+  }
+
+  console.log(id);
+  const result = await fetch("/delete", {
+    ...deleteOption,
+    body: JSON.stringify({ id, password }),
+  });
+
+  const data = await result.json();
+
+  if (data.isSuccess) {
+    document.location = "/";
+  } else {
+    alert("WRONG PASSWORD");
+  }
+}

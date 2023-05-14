@@ -38,7 +38,7 @@ async function getDetailPost(collection, id) {
 
 async function getPostByIdAndPassword(collection, { id, password }) {
   return await collection.findOne(
-    { _id: new ObjectId(id), password: password },
+    { _id: new ObjectId(id), password },
     projectionOption
   );
 }
@@ -56,6 +56,13 @@ async function updatePost(collection, id, post) {
   return await collection.updateOne({ _id: new ObjectId(id) }, toUpdatePost);
 }
 
+async function deletePost(collection, { id, password }) {
+  return await collection.deleteOne({
+    _id: new ObjectId(id),
+    password,
+  });
+}
+
 module.exports = {
   writePost,
   list,
@@ -63,4 +70,5 @@ module.exports = {
   getPostByIdAndPassword,
   getPostById,
   updatePost,
+  deletePost,
 };
