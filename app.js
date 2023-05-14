@@ -12,6 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public/"));
 
 app.engine(
   "handlebars",
@@ -38,7 +39,7 @@ app.get("/", async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.render("home", { title: "게시판 오류" });
+    res.render("home", { title: "ERROR" });
   }
 });
 
@@ -65,6 +66,7 @@ app.get("/detail/:id", async (req, res) => {
 });
 
 let collection;
+
 app.listen(3000, async () => {
   console.log("Server started");
   const mongoClient = await mongodbConnection();
