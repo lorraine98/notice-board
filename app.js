@@ -57,8 +57,10 @@ app.post(WRITE, async (req, res) => {
 });
 
 app.get("/detail/:id", async (req, res) => {
+  const result = await postService.getDetailPost(collection, req.params.id);
   res.render("detail", {
     title: TITLE,
+    post: result.value,
   });
 });
 
