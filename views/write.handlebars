@@ -1,26 +1,28 @@
-<h1>[{{title}}] write post</h1>
+<h1>[{{title}}] {{#if (eq mode "create")}}write{{else}}modify{{/if}} post</h1>
 <div>
-  <form name="boardForm" method="post" action="/write" >
-    <div>
-      <label>title</label>
-      <input type="text" name="title" placeholder="add title" value="" />
-    </div>
+  <form name="boardForm" method="post" {{#if (eq mode "create" )}}action="/write" {{else}}action="/modify" {{/if}}>
+    {{#if (eq mode "modify")}}
+    <input type="hidden" name="id" value="{{post._id}}" />
+    {{/if}}
 
     <div>
-      <label>name</label>
-      <input type="text" name="writer" placeholder="add name" value="" />
+      <label>title</label>
+      <input type="text" name="title" placeholder="enter title" value="{{post.title}}" />
+    </div>
+    <div>
+      <label>writer</label>
+      <input type="text" name="writer" placeholder="enter writer" value="{{post.writer}}" />
     </div>
 
     <div>
       <label>password</label>
-      <input type="password" name="password" placeholder="add password" />
+      <input type="password" name="password" placeholder="enter password" />
     </div>
 
     <div>
-      <label>main post</label><br />
-      <textarea placeholder="add post" name="content" cols="50" rows="10"></textarea>
+      <label>content</label><br />
+      <textarea placeholder="Enter content" name="content" cols="50" rows="10">{{post.content}}</textarea>
       <br />
-
       <div>
         <button type="submit">submit</button>
         <button type="button" onclick="location.href='/'">cancel</button>

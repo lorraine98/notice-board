@@ -5,7 +5,7 @@ const postOption = {
   },
 };
 
-async function modifyPost() {
+async function modifyPost(id) {
   const password = prompt("Enter password");
 
   if (!password) {
@@ -14,13 +14,13 @@ async function modifyPost() {
 
   const result = await fetch("/check-password", {
     ...postOption,
-    body: JSON.stringify({ id: "{{post._id}}", password }),
+    body: JSON.stringify({ id, password }),
   });
 
   const data = await result.json();
 
   if (data.isExist) {
-    document.location = "/modify/{{post.id}}";
+    document.location = `/modify/${id}`;
   } else {
     alert("WRONG PASSWORD");
   }
